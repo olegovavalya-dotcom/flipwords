@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АНАГРАМИ — FlipWords</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Exo+2:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;
+  --panel:#12121a;
+  --panel2:#1a1a26;
+  --cyan:#00f5ff;
+  --pink:#ff2d9b;
+  --yellow:#ffe600;
+  --green:#00ff88;
+  --orange:#ff6b00;
+  --purple:#b44fff;
+  --text:#f0f0ff;
+  --muted:#555570;
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Exo 2',sans-serif;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 20%,rgba(0,245,255,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 50% at 90% 80%,rgba(255,45,155,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%,rgba(180,79,255,.05) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.ad-top{width:100%;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;padding:6px 16px;min-height:60px;position:relative;z-index:1}
+.ad-label{font-size:9px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-right:8px}
+header{text-align:center;padding:20px 20px 0;position:relative;z-index:1;width:100%}
+.back-link{display:inline-block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:10px;transition:color .2s}
+.back-link:hover{color:var(--cyan)}
+.game-badge{display:inline-block;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;font-family:'Black Ops One',sans-serif;font-size:11px;letter-spacing:3px;padding:4px 16px;border-radius:4px;margin-bottom:10px;box-shadow:0 0 20px rgba(255,45,155,.4)}
+.logo{font-family:'Black Ops One',sans-serif;font-size:clamp(32px,8vw,56px);letter-spacing:-1px;line-height:1;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(0,245,255,.3))}
+.tagline{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:6px}
+.stats{display:flex;gap:0;margin:20px auto 0;width:90%;max-width:420px;background:var(--panel);border-radius:16px;border:1px solid rgba(255,255,255,.06);overflow:hidden;position:relative;z-index:1}
+.stat{flex:1;text-align:center;padding:12px 8px;border-right:1px solid rgba(255,255,255,.06)}
+.stat:last-child{border-right:none}
+.stat-num{font-family:'Black Ops One',sans-serif;font-size:26px;line-height:1}
+.stat-num.g{color:var(--green);text-shadow:0 0 12px rgba(0,255,136,.5)}
+.stat-num.a{color:var(--cyan);text-shadow:0 0 12px rgba(0,245,255,.5)}
+.stat-num.r{color:var(--pink);text-shadow:0 0 12px rgba(255,45,155,.5)}
+.stat-label{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.progress-wrap{width:90%;max-width:420px;height:3px;background:var(--panel2);margin:12px auto 0;border-radius:2px;overflow:hidden;position:relative;z-index:1}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--yellow));border-radius:2px;transition:width .4s ease;box-shadow:0 0 8px var(--cyan)}
+.category{margin:14px auto 0;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:0 20px;position:relative;z-index:1}
+.cat-btn{padding:5px 14px;border-radius:6px;font-family:'Exo 2',sans-serif;font-size:11px;font-weight:800;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:var(--panel);color:var(--muted);letter-spacing:2px;text-transform:uppercase;transition:all .2s}
+.cat-btn.active{background:linear-gradient(135deg,var(--cyan),var(--purple));border-color:transparent;color:#000;box-shadow:0 0 16px rgba(0,245,255,.3)}
+.cat-btn:hover:not(.active){border-color:var(--cyan);color:var(--cyan)}
+.game-area{width:100%;display:flex;flex-direction:column;align-items:center;padding-bottom:30px;position:relative;z-index:1}
+.word-card{width:90%;max-width:420px;margin:18px auto 0;background:var(--panel);border-radius:20px;border:1px solid rgba(255,255,255,.08);padding:20px;text-align:center;position:relative;overflow:hidden}
+.word-card::before{content:'';position:absolute;top:-1px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--yellow),var(--green))}
+.word-hint{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.word-emoji{font-size:40px;margin-bottom:8px;display:block}
+.word-ua{font-family:'Black Ops One',sans-serif;font-size:clamp(22px,6vw,32px);background:linear-gradient(135deg,var(--yellow),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.word-example{font-size:12px;color:var(--muted);font-style:italic;line-height:1.5}
+.section-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin:16px 0 10px;text-align:center}
+.letters-wrap{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:90%;max-width:420px;margin:0 auto;min-height:58px}
+.letter-tile{width:46px;height:54px;border-radius:10px;font-family:'Black Ops One',sans-serif;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;user-select:none;border:none}
+.letter-tile:nth-child(7n+1){background:var(--cyan);color:#000;box-shadow:0 0 16px rgba(0,245,255,.4)}
+.letter-tile:nth-child(7n+2){background:var(--pink);color:#fff;box-shadow:0 0 16px rgba(255,45,155,.4)}
+.letter-tile:nth-child(7n+3){background:var(--yellow);color:#000;box-shadow:0 0 16px rgba(255,230,0,.4)}
+.letter-tile:nth-child(7n+4){background:var(--green);color:#000;box-shadow:0 0 16px rgba(0,255,136,.4)}
+.letter-tile:nth-child(7n+5){background:var(--orange);color:#fff;box-shadow:0 0 16px rgba(255,107,0,.4)}
+.letter-tile:nth-child(7n+6){background:var(--purple);color:#fff;box-shadow:0 0 16px rgba(180,79,255,.4)}
+.letter-tile:nth-child(7n+0){background:#ff4444;color:#fff;box-shadow:0 0 16px rgba(255,68,68,.4)}
+.letter-tile:hover{transform:translateY(-5px) scale(1.1)}
+.letter-tile:active{transform:scale(.93)}
+.letter-tile.used{opacity:.15;pointer-events:none;transform:none;filter:grayscale(1)}
+.answer-slots{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:90%;max-width:420px;margin:0 auto;min-height:58px}
+.answer-tile{width:46px;height:54px;border-radius:10px;font-family:'Black Ops One',sans-serif;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;background:var(--panel2);border:2px dashed rgba(255,255,255,.12);color:var(--text)}
+.answer-tile.filled{background:var(--panel);border:2px solid rgba(255,255,255,.2);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.answer-tile.filled:hover{border-color:var(--pink);transform:translateY(-3px)}
+.answer-tile.correct-flash{background:var(--green)!important;border-color:var(--green)!important;color:#000!important;animation:pop .4s ease}
+.answer-tile.wrong-flash{background:var(--pink)!important;border-color:var(--pink)!important;animation:shake .4s ease}
+.feedback-msg{font-family:'Black Ops One',sans-serif;font-size:15px;text-align:center;margin:14px 0 0;min-height:26px;letter-spacing:1px;transition:all .3s}
+.feedback-msg.ok{color:var(--green);text-shadow:0 0 12px rgba(0,255,136,.6)}
+.feedback-msg.err{color:var(--pink);text-shadow:0 0 12px rgba(255,45,155,.6)}
+.action-row{display:flex;gap:10px;margin:16px auto 0;justify-content:center;flex-wrap:wrap;width:90%;max-width:420px}
+.btn{padding:12px 20px;border-radius:10px;font-family:'Exo 2',sans-serif;font-size:13px;font-weight:800;cursor:pointer;border:none;transition:all .18s;letter-spacing:1px;text-transform:uppercase}
+.btn-check{flex:1;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;font-weight:900;box-shadow:0 0 20px rgba(0,245,255,.3)}
+.btn-check:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(0,245,255,.5)}
+.btn-check:disabled{opacity:.3;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-clear{background:var(--panel2);color:var(--muted);border:1px solid rgba(255,255,255,.08)}
+.btn-clear:hover{color:var(--yellow);border-color:var(--yellow)}
+.btn-skip{background:var(--panel2);color:var(--muted);border:1px solid rgba(255,255,255,.08)}
+.btn-skip:hover{color:var(--pink);border-color:var(--pink)}
+.ad-mid{width:90%;max-width:420px;margin:20px auto 0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.result-screen{display:none;flex-direction:column;align-items:center;text-align:center;padding:40px 20px;position:relative;z-index:1}
+.result-screen.visible{display:flex}
+.result-emoji{font-size:70px;margin-bottom:14px}
+.result-title{font-family:'Black Ops One',sans-serif;font-size:clamp(28px,8vw,44px);background:linear-gradient(90deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.result-sub{font-size:14px;color:var(--muted);margin-bottom:20px}
+.result-score{font-family:'Black Ops One',sans-serif;font-size:52px;background:linear-gradient(135deg,var(--yellow),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;filter:drop-shadow(0 0 20px rgba(255,230,0,.4))}
+.result-detail{font-size:13px;color:var(--muted);margin-bottom:28px}
+.btn-restart{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;padding:16px 40px;border-radius:12px;font-family:'Exo 2',sans-serif;font-size:15px;font-weight:900;cursor:pointer;border:none;transition:all .2s;letter-spacing:2px;text-transform:uppercase;box-shadow:0 0 24px rgba(255,45,155,.4)}
+.btn-restart:hover{transform:scale(1.05);box-shadow:0 0 36px rgba(255,45,155,.6)}
+footer{margin-top:auto;padding:16px;font-size:10px;color:var(--muted);text-align:center;letter-spacing:1px;position:relative;z-index:1}
+footer a{color:var(--muted);text-decoration:none;transition:color .2s}
+footer a:hover{color:var(--cyan)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .4s ease both}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2374209772782950" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="ad-top">
+  <span class="ad-label">Реклама</span>
+  <script>atOptions={'key':'575b6ac462cf76cc7d221d352a1f06b3','format':'iframe','height':50,'width':320,'params':{}};</script>
+  <script src="https://www.highperformanceformat.com/575b6ac462cf76cc7d221d352a1f06b3/invoke.js"></script>
+</div>
+<header>
+  <a class="back-link" href="https://flipwords-ua.netlify.app">← FlipWords</a>
+  <div class="game-badge">🔤 АНАГРАМИ</div>
+  <div class="logo">АНАГРАМИ</div>
+  <div class="tagline">Склади слово з букв · Вивчай Англійську</div>
+</header>
+<div class="stats">
+  <div class="stat"><div class="stat-num g" id="score-correct">0</div><div class="stat-label">✓ Вірно</div></div>
+  <div class="stat"><div class="stat-num a" id="score-card">1</div><div class="stat-label">Слово</div></div>
+  <div class="stat"><div class="stat-num r" id="score-wrong">0</div><div class="stat-label">✗ Помилки</div></div>
+</div>
+<div class="progress-wrap"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+<div class="category" id="category-bar"></div>
+<div class="game-area" id="game-area">
+  <div class="word-card fade-up">
+    <div class="word-hint">Переклад слова</div>
+    <span class="word-emoji" id="card-emoji">🔤</span>
+    <div class="word-ua" id="card-translation">Завантаження…</div>
+    <div class="word-example" id="card-example"></div>
+  </div>
+  <div class="section-label">Перемішані букви — натискай щоб складати:</div>
+  <div class="letters-wrap" id="letters-wrap"></div>
+  <div class="section-label">Твоя відповідь:</div>
+  <div class="answer-slots" id="answer-slots"></div>
+  <div class="feedback-msg" id="feedback"></div>
+  <div class="action-row">
+    <button class="btn btn-clear" onclick="clearAnswer()">🔄 Очистити</button>
+    <button class="btn btn-check" id="btn-check" onclick="checkAnswer()" disabled>⚡ Перевірити</button>
+    <button class="btn btn-skip" onclick="skipWord()">⏭ Далі</button>
+  </div>
+  <div class="ad-mid">
+    <span class="ad-label">Реклама</span>
+    <script>atOptions={'key':'575b6ac462cf76cc7d221d352a1f06b3','format':'iframe','height':50,'width':320,'params':{}};</script>
+    <script src="https://www.highperformanceformat.com/575b6ac462cf76cc7d221d352a1f06b3/invoke.js"></script>
+  </div>
+</div>
+<div class="result-screen" id="result-screen">
+  <div class="result-emoji" id="result-emoji">🎉</div>
+  <div class="result-title" id="result-title">ЧУДОВО!</div>
+  <div class="result-sub" id="result-sub">Ти пройшла цей рівень</div>
+  <div class="result-score" id="result-score">0/10</div>
+  <div class="result-detail" id="result-detail"></div>
+  <button class="btn-restart" onclick="restart()">🔄 ГРАТИ ЗНОВУ</button>
+</div>
+<footer>FlipWords · Безкоштовна практика англійської · © 2026 · <a href="https://flipwords-ua.netlify.app">← Назад до FlipWords</a></footer>
+<script>
+const WORDS={basics:[{word:"Happy",emoji:"😊",ua:"Щасливий",ex:"I feel happy today."},{word:"Beautiful",emoji:"🌸",ua:"Красивий",ex:"What a beautiful day!"},{word:"Friend",emoji:"🤝",ua:"Друг",ex:"She is my best friend."},{word:"Work",emoji:"💼",ua:"Робота",ex:"I go to work every day."},{word:"Home",emoji:"🏠",ua:"Дім",ex:"I love my home."},{word:"Money",emoji:"💰",ua:"Гроші",ex:"I need to earn money."},{word:"Love",emoji:"❤️",ua:"Кохання",ex:"Love is everything."},{word:"Dream",emoji:"🌙",ua:"Мрія",ex:"Follow your dream."},{word:"Success",emoji:"🏆",ua:"Успіх",ex:"Hard work leads to success."},{word:"Smile",emoji:"😁",ua:"Посмішка",ex:"Your smile is contagious."}],business:[{word:"Deadline",emoji:"⏰",ua:"Дедлайн",ex:"The deadline is tomorrow."},{word:"Invoice",emoji:"🧾",ua:"Рахунок",ex:"Please send the invoice."},{word:"Client",emoji:"🤵",ua:"Клієнт",ex:"The client is happy."},{word:"Profit",emoji:"📈",ua:"Прибуток",ex:"Our profit grew this year."},{word:"Meeting",emoji:"📅",ua:"Зустріч",ex:"I have a meeting at noon."},{word:"Freelance",emoji:"💻",ua:"Фріланс",ex:"I work freelance."},{word:"Proposal",emoji:"📄",ua:"Пропозиція",ex:"She sent a great proposal."},{word:"Revenue",emoji:"💵",ua:"Дохід",ex:"Revenue doubled last month."},{word:"Strategy",emoji:"🗺️",ua:"Стратегія",ex:"We need a new strategy."},{word:"Feedback",emoji:"💬",ua:"Відгук",ex:"I got positive feedback."}],travel:[{word:"Passport",emoji:"🛂",ua:"Паспорт",ex:"Don't forget your passport!"},{word:"Luggage",emoji:"🧳",ua:"Багаж",ex:"My luggage is too heavy."},{word:"Flight",emoji:"✈️",ua:"Рейс",ex:"Our flight leaves at 8am."},{word:"Hotel",emoji:"🏨",ua:"Готель",ex:"The hotel is very cozy."},{word:"Journey",emoji:"🗺️",ua:"Подорож",ex:"What a long journey!"},{word:"Adventure",emoji:"🧗",ua:"Пригода",ex:"Life is an adventure."},{word:"Explore",emoji:"🔭",ua:"Досліджувати",ex:"Let's explore the city!"},{word:"Culture",emoji:"🎭",ua:"Культура",ex:"I love local culture."},{word:"Souvenir",emoji:"🎁",ua:"Сувенір",ex:"I bought a souvenir."},{word:"Tourist",emoji:"📸",ua:"Турист",ex:"I'm a tourist here."}],emotions:[{word:"Excited",emoji:"🤩",ua:"Схвильований",ex:"I'm so excited!"},{word:"Nervous",emoji:"😰",ua:"Нервовий",ex:"She feels nervous."},{word:"Proud",emoji:"🦁",ua:"Гордий",ex:"I'm proud of you."},{word:"Grateful",emoji:"🙏",ua:"Вдячний",ex:"I'm grateful for everything."},{word:"Brave",emoji:"💪",ua:"Хоробрий",ex:"Be brave and try."},{word:"Confident",emoji:"😎",ua:"Впевнений",ex:"Stay confident!"},{word:"Surprised",emoji:"😲",ua:"Здивований",ex:"I was surprised."},{word:"Calm",emoji:"🧘",ua:"Спокійний",ex:"Stay calm and breathe."},{word:"Curious",emoji:"🤔",ua:"Цікавий",ex:"Children are very curious."},{word:"Hopeful",emoji:"🌟",ua:"Сповнений надії",ex:"I feel hopeful today."}]};
+const CAT_LABELS={basics:'Базові',business:'Бізнес',travel:'Подорожі',emotions:'Емоції'};
+const CATS=Object.keys(WORDS);
+let currentCat='basics',deck=[],idx=0,correct=0,wrong=0,scrambled=[],answer=[],letterUsed=[];
+const bar=document.getElementById('category-bar');
+CATS.forEach(cat=>{const b=document.createElement('button');b.className='cat-btn'+(cat===currentCat?' active':'');b.textContent=CAT_LABELS[cat];b.onclick=()=>selectCat(cat);bar.appendChild(b);});
+function selectCat(cat){currentCat=cat;document.querySelectorAll('.cat-btn').forEach((b,i)=>b.classList.toggle('active',CATS[i]===cat));restart();}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function scrambleWord(word){const letters=word.toUpperCase().split('');let s;do{s=shuffle(letters);}while(s.join('')===word.toUpperCase()&&word.length>2);return s;}
+function restart(){deck=shuffle(WORDS[currentCat]);idx=0;correct=0;wrong=0;document.getElementById('result-screen').classList.remove('visible');document.getElementById('game-area').style.display='flex';updateStats();loadCard();}
+function loadCard(){if(idx>=deck.length){showResult();return;}const w=deck[idx];document.getElementById('card-emoji').textContent=w.emoji;document.getElementById('card-translation').textContent=w.ua;document.getElementById('card-example').textContent='"'+w.ex+'"';document.getElementById('feedback').textContent='';document.getElementById('feedback').className='feedback-msg';scrambled=scrambleWord(w.word);answer=[];letterUsed=new Array(scrambled.length).fill(false);renderLetters();renderAnswer(w.word.length);updateCheckBtn();updateStats();const card=document.querySelector('.word-card');card.classList.remove('fade-up');void card.offsetWidth;card.classList.add('fade-up');}
+function renderLetters(){const wrap=document.getElementById('letters-wrap');wrap.innerHTML='';scrambled.forEach((letter,i)=>{const tile=document.createElement('button');tile.className='letter-tile'+(letterUsed[i]?' used':'');tile.textContent=letter;tile.onclick=()=>pickLetter(i);wrap.appendChild(tile);});}
+function renderAnswer(wordLen){const slots=document.getElementById('answer-slots');slots.innerHTML='';for(let i=0;i<wordLen;i++){const tile=document.createElement('div');tile.className='answer-tile'+(answer[i]?' filled':'');tile.textContent=answer[i]?answer[i].letter:'';if(answer[i])tile.onclick=()=>removeLetter(i);slots.appendChild(tile);}}
+function pickLetter(i){if(letterUsed[i])return;const wordLen=deck[idx].word.length;if(answer.length>=wordLen)return;letterUsed[i]=true;answer.push({letter:scrambled[i],srcIdx:i});renderLetters();renderAnswer(wordLen);updateCheckBtn();}
+function removeLetter(answerIdx){const removed=answer[answerIdx];if(!removed)return;letterUsed[removed.srcIdx]=false;answer.splice(answerIdx,1);renderLetters();renderAnswer(deck[idx].word.length);updateCheckBtn();}
+function clearAnswer(){answer=[];letterUsed=new Array(scrambled.length).fill(false);renderLetters();renderAnswer(deck[idx].word.length);updateCheckBtn();document.getElementById('feedback').textContent='';document.getElementById('feedback').className='feedback-msg';}
+function updateCheckBtn(){document.getElementById('btn-check').disabled=answer.length!==deck[idx].word.length;}
+function checkAnswer(){const word=deck[idx].word.toUpperCase();const given=answer.map(a=>a.letter).join('');const slots=document.getElementById('answer-slots').children;const fb=document.getElementById('feedback');if(given===word){Array.from(slots).forEach(s=>s.classList.add('correct-flash'));fb.textContent='🎉 ПРАВИЛЬНО! МОЛОДЕЦЬ!';fb.className='feedback-msg ok';correct++;idx++;updateStats();setTimeout(()=>loadCard(),1100);}else{Array.from(slots).forEach(s=>s.classList.add('wrong-flash'));setTimeout(()=>Array.from(slots).forEach(s=>s.classList.remove('wrong-flash')),500);fb.textContent='💥 НЕ ВІРНО — СПРОБУЙ ЩЕ!';fb.className='feedback-msg err';wrong++;updateStats();}}
+function skipWord(){document.getElementById('feedback').textContent='💡 ВІДПОВІДЬ: '+deck[idx].word.toUpperCase();document.getElementById('feedback').className='feedback-msg err';wrong++;idx++;updateStats();setTimeout(()=>loadCard(),1400);}
+function updateStats(){document.getElementById('score-correct').textContent=correct;document.getElementById('score-wrong').textContent=wrong;document.getElementById('score-card').textContent=Math.min(idx+1,deck.length);document.getElementById('progress').style.width=(deck.length?(idx/deck.length*100):0)+'%';}
+function showResult(){document.getElementById('game-area').style.display='none';document.getElementById('result-screen').classList.add('visible');const total=deck.length,pct=Math.round(correct/total*100);document.getElementById('result-score').textContent=correct+'/'+total;document.getElementById('result-detail').textContent=pct+'% правильно · '+wrong+' помилок';if(pct>=80){document.getElementById('result-emoji').textContent='🏆';document.getElementById('result-title').textContent='ВІДМІННО!';document.getElementById('result-sub').textContent='Твоя англійська стає кращою!';}else if(pct>=50){document.getElementById('result-emoji').textContent='💪';document.getElementById('result-title').textContent='ДОБРЕ!';document.getElementById('result-sub').textContent='Продовжуй практикуватись щодня!';}else{document.getElementById('result-emoji').textContent='🔥';document.getElementById('result-title').textContent='НЕ ЗДАВАЙСЯ!';document.getElementById('result-sub').textContent='Практика — шлях до успіху!';}}
+restart();
+</script>
+</body>
+</html>
