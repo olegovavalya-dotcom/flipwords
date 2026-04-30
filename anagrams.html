@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анаграми — Вивчай Англійську | FlipWords</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#fffdf7;--ink:#1a1208;--accent:#f5a623;--accent2:#2ecc71;--wrong:#e74c3c;--muted:#aaa;--card:#fff}
+body{background:var(--bg);color:var(--ink);font-family:'Nunito',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0}
+
+/* AD */
+.ad-top{width:100%;background:#f0ede4;border-bottom:1px solid #e5e0d0;display:flex;align-items:center;justify-content:center;padding:6px 16px;min-height:60px}
+.ad-label{font-size:10px;color:#bbb;letter-spacing:2px;text-transform:uppercase;margin-right:8px}
+
+/* HEADER */
+header{text-align:center;padding:24px 20px 0}
+.logo{font-family:'Syne',sans-serif;font-size:clamp(28px,7vw,48px);font-weight:800;letter-spacing:-2px;line-height:1}
+.logo em{color:var(--accent);font-style:normal}
+.logo a{color:inherit;text-decoration:none}
+.tagline{font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.game-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--accent);margin-top:8px;letter-spacing:-0.5px}
+
+/* STATS */
+.stats{display:flex;gap:28px;margin:20px auto 0;justify-content:center}
+.stat{text-align:center}
+.stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;line-height:1}
+.stat-num.g{color:var(--accent2)}.stat-num.r{color:var(--wrong)}.stat-num.a{color:var(--accent)}
+.stat-label{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+
+/* PROGRESS */
+.progress-wrap{width:90%;max-width:400px;height:4px;background:#e8e3d5;border-radius:4px;margin:16px auto 0;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px;transition:width .4s ease}
+
+/* CATEGORY */
+.category{margin:14px auto 0;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:0 20px}
+.cat-btn{padding:5px 14px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;cursor:pointer;border:2px solid #e5e0d0;background:transparent;color:var(--muted);letter-spacing:1px;text-transform:uppercase;transition:all .2s}
+.cat-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.cat-btn:hover:not(.active){border-color:var(--accent);color:var(--accent)}
+
+/* GAME AREA */
+.game-area{width:100%;display:flex;flex-direction:column;align-items:center;padding-bottom:20px}
+
+/* WORD DISPLAY */
+.word-box{width:90%;max-width:400px;margin:20px auto 0;background:var(--card);border-radius:24px;box-shadow:0 8px 40px rgba(0,0,0,.08),0 0 0 2px #f0ede4;padding:24px 20px;text-align:center}
+.word-hint{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.word-emoji{font-size:36px;margin-bottom:8px}
+.word-translation{font-family:'Syne',sans-serif;font-size:clamp(20px,5vw,28px);font-weight:800;color:#1a7a4a;margin-bottom:4px}
+.word-example{font-size:12px;color:#4a8a6a;font-style:italic;line-height:1.4}
+
+/* SCRAMBLED LETTERS */
+.scramble-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin:18px 0 10px;text-align:center}
+.letters-wrap{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:90%;max-width:400px;margin:0 auto;min-height:54px}
+.letter-tile{width:44px;height:52px;border-radius:10px;background:var(--accent);color:#fff;font-family:'Syne',sans-serif;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;box-shadow:0 4px 12px rgba(245,166,35,.3);user-select:none;border:none}
+.letter-tile:hover{transform:translateY(-3px) scale(1.08);box-shadow:0 8px 20px rgba(245,166,35,.4)}
+.letter-tile:active{transform:scale(0.95)}
+.letter-tile.used{opacity:0.25;pointer-events:none;transform:none}
+
+/* ANSWER BOX */
+.answer-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin:16px 0 10px;text-align:center}
+.answer-slots{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:90%;max-width:400px;margin:0 auto;min-height:54px}
+.answer-tile{width:44px;height:52px;border-radius:10px;background:#f0ede4;color:var(--ink);font-family:'Syne',sans-serif;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;border:2px dashed #d0c9b8;user-select:none}
+.answer-tile.filled{background:var(--ink);color:#fff;border:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.answer-tile.filled:hover{transform:translateY(-2px);background:#333}
+.answer-tile.correct-anim{background:var(--accent2);border:none;animation:pop .4s ease}
+.answer-tile.wrong-anim{background:var(--wrong);border:none;animation:shake .4s ease}
+
+/* BUTTONS */
+.action-row{display:flex;gap:12px;margin:18px auto 0;justify-content:center;flex-wrap:wrap;width:90%;max-width:400px}
+.btn{padding:12px 24px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .18s}
+.btn-check{background:var(--accent);color:#fff;box-shadow:0 4px 16px rgba(245,166,35,.3);flex:1}
+.btn-check:hover{transform:scale(1.04)}
+.btn-check:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.btn-clear{background:#f0ede4;color:var(--ink);border:2px solid #e0d9c8;flex:0 0 auto}
+.btn-clear:hover{background:#e0d9c8}
+.btn-skip{background:#fef0ee;color:var(--wrong);border:2px solid #f9c9c3;flex:0 0 auto}
+.btn-skip:hover{background:#fce0dd}
+
+/* FEEDBACK */
+.feedback-msg{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;text-align:center;margin:14px 0 0;min-height:24px;transition:all .3s}
+.feedback-msg.ok{color:var(--accent2)}
+.feedback-msg.err{color:var(--wrong)}
+
+/* AD MID */
+.ad-mid{width:90%;max-width:400px;margin:20px auto 0;display:flex;flex-direction:column;align-items:center;gap:6px}
+
+/* RESULT */
+.result-screen{display:none;flex-direction:column;align-items:center;text-align:center;padding:32px 20px}
+.result-screen.visible{display:flex}
+.result-emoji{font-size:60px;margin-bottom:10px}
+.result-title{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--accent);margin-bottom:6px}
+.result-sub{font-size:15px;color:var(--muted);margin-bottom:20px}
+.result-score{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;margin-bottom:6px}
+.result-detail{font-size:13px;color:var(--muted);margin-bottom:24px}
+.btn-restart{background:var(--ink);color:#fff;padding:14px 36px;border-radius:50px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.btn-restart:hover{transform:scale(1.04)}
+
+footer{margin-top:auto;padding:16px;font-size:11px;color:#ccc;text-align:center}
+footer a{color:#ccc;text-decoration:none}
+
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .4s ease}
+</style>
+<!-- Adsterra top -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2374209772782950" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="ad-top">
+  <span class="ad-label">Реклама</span>
+  <script>
+  atOptions = {'key':'575b6ac462cf76cc7d221d352a1f06b3','format':'iframe','height':50,'width':320,'params':{}};
+  </script>
+  <script src="https://www.highperformanceformat.com/575b6ac462cf76cc7d221d352a1f06b3/invoke.js"></script>
+</div>
+
+<header>
+  <div class="logo"><a href="https://flipwords-ua.netlify.app">Flip<em>Words</em></a></div>
+  <div class="tagline">Вивчай Англійську · Щодня</div>
+  <div class="game-title">🔤 Анаграми</div>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num g" id="score-correct">0</div><div class="stat-label">Правильно</div></div>
+  <div class="stat"><div class="stat-num a" id="score-card">1</div><div class="stat-label">Слово</div></div>
+  <div class="stat"><div class="stat-num r" id="score-wrong">0</div><div class="stat-label">Помилки</div></div>
+</div>
+<div class="progress-wrap"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+<div class="category" id="category-bar"></div>
+
+<div class="game-area" id="game-area">
+  <div class="word-box fade-in">
+    <div class="word-hint">Переклад слова</div>
+    <div class="word-emoji" id="card-emoji">📚</div>
+    <div class="word-translation" id="card-translation">Завантаження…</div>
+    <div class="word-example" id="card-example"></div>
+  </div>
+
+  <div class="scramble-label">Перемішані букви — натисни щоб скласти слово:</div>
+  <div class="letters-wrap" id="letters-wrap"></div>
+
+  <div class="answer-label">Твоя відповідь:</div>
+  <div class="answer-slots" id="answer-slots"></div>
+
+  <div class="feedback-msg" id="feedback"></div>
+
+  <div class="action-row">
+    <button class="btn btn-clear" onclick="clearAnswer()">🔄 Очистити</button>
+    <button class="btn btn-check" id="btn-check" onclick="checkAnswer()" disabled>✅ Перевірити</button>
+    <button class="btn btn-skip" onclick="skipWord()">⏭ Пропустити</button>
+  </div>
+
+  <div class="ad-mid">
+    <span class="ad-label">Реклама</span>
+    <script>
+    atOptions = {'key':'575b6ac462cf76cc7d221d352a1f06b3','format':'iframe','height':50,'width':320,'params':{}};
+    </script>
+    <script src="https://www.highperformanceformat.com/575b6ac462cf76cc7d221d352a1f06b3/invoke.js"></script>
+  </div>
+</div>
+
+<div class="result-screen" id="result-screen">
+  <div class="result-emoji" id="result-emoji">🎉</div>
+  <div class="result-title" id="result-title">Чудово!</div>
+  <div class="result-sub" id="result-sub">Ти пройшла цей рівень</div>
+  <div class="result-score" id="result-score">0/10</div>
+  <div class="result-detail" id="result-detail"></div>
+  <button class="btn-restart" onclick="restart()">🔄 Грати знову</button>
+</div>
+
+<footer>FlipWords · Безкоштовна практика англійської · © 2026 · <a href="https://flipwords-ua.netlify.app">← Назад до FlipWords</a></footer>
+
+<script>
+const WORDS = {
+  basics:[
+    {word:"Happy",emoji:"😊",ua:"Щасливий",ex:"I feel happy today."},
+    {word:"Beautiful",emoji:"🌸",ua:"Красивий",ex:"What a beautiful day!"},
+    {word:"Friend",emoji:"🤝",ua:"Друг",ex:"She is my best friend."},
+    {word:"Work",emoji:"💼",ua:"Робота",ex:"I go to work every day."},
+    {word:"Home",emoji:"🏠",ua:"Дім",ex:"I love my home."},
+    {word:"Money",emoji:"💰",ua:"Гроші",ex:"I need to earn money."},
+    {word:"Love",emoji:"❤️",ua:"Кохання",ex:"Love is everything."},
+    {word:"Dream",emoji:"🌙",ua:"Мрія",ex:"Follow your dream."},
+    {word:"Success",emoji:"🏆",ua:"Успіх",ex:"Hard work leads to success."},
+    {word:"Smile",emoji:"😁",ua:"Посмішка",ex:"Your smile is contagious."}
+  ],
+  business:[
+    {word:"Deadline",emoji:"⏰",ua:"Дедлайн",ex:"The deadline is tomorrow."},
+    {word:"Invoice",emoji:"🧾",ua:"Рахунок",ex:"Please send the invoice."},
+    {word:"Client",emoji:"🤵",ua:"Клієнт",ex:"The client is happy."},
+    {word:"Profit",emoji:"📈",ua:"Прибуток",ex:"Our profit grew this year."},
+    {word:"Meeting",emoji:"📅",ua:"Зустріч",ex:"I have a meeting at noon."},
+    {word:"Freelance",emoji:"💻",ua:"Фріланс",ex:"I work freelance."},
+    {word:"Proposal",emoji:"📄",ua:"Пропозиція",ex:"She sent a great proposal."},
+    {word:"Revenue",emoji:"💵",ua:"Дохід",ex:"Revenue doubled last month."},
+    {word:"Strategy",emoji:"🗺️",ua:"Стратегія",ex:"We need a new strategy."},
+    {word:"Feedback",emoji:"💬",ua:"Відгук",ex:"I got positive feedback."}
+  ],
+  travel:[
+    {word:"Passport",emoji:"🛂",ua:"Паспорт",ex:"Don't forget your passport!"},
+    {word:"Luggage",emoji:"🧳",ua:"Багаж",ex:"My luggage is too heavy."},
+    {word:"Flight",emoji:"✈️",ua:"Рейс",ex:"Our flight leaves at 8am."},
+    {word:"Hotel",emoji:"🏨",ua:"Готель",ex:"The hotel is very cozy."},
+    {word:"Journey",emoji:"🗺️",ua:"Подорож",ex:"What a long journey!"},
+    {word:"Adventure",emoji:"🧗",ua:"Пригода",ex:"Life is an adventure."},
+    {word:"Explore",emoji:"🔭",ua:"Досліджувати",ex:"Let's explore the city!"},
+    {word:"Culture",emoji:"🎭",ua:"Культура",ex:"I love local culture."},
+    {word:"Souvenir",emoji:"🎁",ua:"Сувенір",ex:"I bought a souvenir."},
+    {word:"Tourist",emoji:"📸",ua:"Турист",ex:"I'm a tourist here."}
+  ],
+  emotions:[
+    {word:"Excited",emoji:"🤩",ua:"Схвильований",ex:"I'm so excited!"},
+    {word:"Nervous",emoji:"😰",ua:"Нервовий",ex:"She feels nervous."},
+    {word:"Proud",emoji:"🦁",ua:"Гордий",ex:"I'm proud of you."},
+    {word:"Grateful",emoji:"🙏",ua:"Вдячний",ex:"I'm grateful for everything."},
+    {word:"Brave",emoji:"💪",ua:"Хоробрий",ex:"Be brave and try."},
+    {word:"Confident",emoji:"😎",ua:"Впевнений",ex:"Stay confident!"},
+    {word:"Surprised",emoji:"😲",ua:"Здивований",ex:"I was surprised."},
+    {word:"Calm",emoji:"🧘",ua:"Спокійний",ex:"Stay calm and breathe."},
+    {word:"Curious",emoji:"🤔",ua:"Цікавий",ex:"Children are very curious."},
+    {word:"Hopeful",emoji:"🌟",ua:"Сповнений надії",ex:"I feel hopeful today."}
+  ]
+};
+
+const CAT_LABELS = {basics:'Базові', business:'Бізнес', travel:'Подорожі', emotions:'Емоції'};
+const CATS = Object.keys(WORDS);
+let currentCat = 'basics', deck = [], idx = 0, correct = 0, wrong = 0;
+let scrambled = [], answer = [], letterUsed = [];
+
+// Build category bar
+const bar = document.getElementById('category-bar');
+CATS.forEach(cat => {
+  const b = document.createElement('button');
+  b.className = 'cat-btn' + (cat === currentCat ? ' active' : '');
+  b.textContent = CAT_LABELS[cat];
+  b.onclick = () => selectCat(cat);
+  bar.appendChild(b);
+});
+
+function selectCat(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-btn').forEach((b, i) => b.classList.toggle('active', CATS[i] === cat));
+  restart();
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function scrambleWord(word) {
+  const letters = word.toUpperCase().split('');
+  let shuffled;
+  do { shuffled = shuffle(letters); }
+  while (shuffled.join('') === word.toUpperCase() && word.length > 2);
+  return shuffled;
+}
+
+function restart() {
+  deck = shuffle(WORDS[currentCat]);
+  idx = 0; correct = 0; wrong = 0;
+  document.getElementById('result-screen').classList.remove('visible');
+  document.getElementById('game-area').style.display = 'flex';
+  updateStats();
+  loadCard();
+}
+
+function loadCard() {
+  if (idx >= deck.length) { showResult(); return; }
+  const w = deck[idx];
+  document.getElementById('card-emoji').textContent = w.emoji;
+  document.getElementById('card-translation').textContent = w.ua;
+  document.getElementById('card-example').textContent = '"' + w.ex + '"';
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback-msg';
+
+  scrambled = scrambleWord(w.word);
+  answer = [];
+  letterUsed = new Array(scrambled.length).fill(false);
+
+  renderLetters();
+  renderAnswer(w.word.length);
+  updateCheckBtn();
+  updateStats();
+
+  // animate in
+  document.querySelector('.word-box').classList.remove('fade-in');
+  void document.querySelector('.word-box').offsetWidth;
+  document.querySelector('.word-box').classList.add('fade-in');
+}
+
+function renderLetters() {
+  const wrap = document.getElementById('letters-wrap');
+  wrap.innerHTML = '';
+  scrambled.forEach((letter, i) => {
+    const tile = document.createElement('button');
+    tile.className = 'letter-tile' + (letterUsed[i] ? ' used' : '');
+    tile.textContent = letter;
+    tile.onclick = () => pickLetter(i);
+    wrap.appendChild(tile);
+  });
+}
+
+function renderAnswer(wordLen) {
+  const slots = document.getElementById('answer-slots');
+  slots.innerHTML = '';
+  for (let i = 0; i < wordLen; i++) {
+    const tile = document.createElement('div');
+    tile.className = 'answer-tile' + (answer[i] ? ' filled' : '');
+    tile.textContent = answer[i] ? answer[i].letter : '';
+    if (answer[i]) tile.onclick = () => removeLetter(i);
+    slots.appendChild(tile);
+  }
+}
+
+function pickLetter(i) {
+  if (letterUsed[i]) return;
+  const wordLen = deck[idx].word.length;
+  if (answer.length >= wordLen) return;
+  letterUsed[i] = true;
+  answer.push({letter: scrambled[i], srcIdx: i});
+  renderLetters();
+  renderAnswer(wordLen);
+  updateCheckBtn();
+}
+
+function removeLetter(answerIdx) {
+  const removed = answer[answerIdx];
+  if (!removed) return;
+  letterUsed[removed.srcIdx] = false;
+  answer.splice(answerIdx, 1);
+  renderLetters();
+  renderAnswer(deck[idx].word.length);
+  updateCheckBtn();
+}
+
+function clearAnswer() {
+  answer = [];
+  letterUsed = new Array(scrambled.length).fill(false);
+  renderLetters();
+  renderAnswer(deck[idx].word.length);
+  updateCheckBtn();
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback-msg';
+}
+
+function updateCheckBtn() {
+  const btn = document.getElementById('btn-check');
+  btn.disabled = answer.length !== deck[idx].word.length;
+}
+
+function checkAnswer() {
+  const word = deck[idx].word.toUpperCase();
+  const given = answer.map(a => a.letter).join('');
+  const slots = document.getElementById('answer-slots').children;
+  const fb = document.getElementById('feedback');
+
+  if (given === word) {
+    // correct
+    Array.from(slots).forEach(s => { s.classList.add('correct-anim'); });
+    fb.textContent = '🎉 Правильно! Молодець!';
+    fb.className = 'feedback-msg ok';
+    correct++;
+    idx++;
+    updateStats();
+    setTimeout(() => loadCard(), 1200);
+  } else {
+    // wrong
+    Array.from(slots).forEach(s => { s.classList.add('wrong-anim'); });
+    setTimeout(() => Array.from(slots).forEach(s => s.classList.remove('wrong-anim')), 500);
+    fb.textContent = '😅 Не вірно — спробуй ще!';
+    fb.className = 'feedback-msg err';
+    wrong++;
+    updateStats();
+  }
+}
+
+function skipWord() {
+  const fb = document.getElementById('feedback');
+  fb.textContent = '💡 Відповідь: ' + deck[idx].word.toUpperCase();
+  fb.className = 'feedback-msg err';
+  wrong++;
+  idx++;
+  updateStats();
+  setTimeout(() => loadCard(), 1500);
+}
+
+function updateStats() {
+  document.getElementById('score-correct').textContent = correct;
+  document.getElementById('score-wrong').textContent = wrong;
+  document.getElementById('score-card').textContent = Math.min(idx + 1, deck.length);
+  const pct = deck.length ? (idx / deck.length * 100) : 0;
+  document.getElementById('progress').style.width = pct + '%';
+}
+
+function showResult() {
+  document.getElementById('game-area').style.display = 'none';
+  const rs = document.getElementById('result-screen');
+  rs.classList.add('visible');
+  const total = deck.length;
+  const pct = Math.round(correct / total * 100);
+  document.getElementById('result-score').textContent = correct + '/' + total;
+  document.getElementById('result-detail').textContent = pct + '% правильно · ' + wrong + ' помилок';
+  if (pct >= 80) {
+    document.getElementById('result-emoji').textContent = '🏆';
+    document.getElementById('result-title').textContent = 'Відмінно!';
+    document.getElementById('result-sub').textContent = 'Твоя англійська стає кращою!';
+  } else if (pct >= 50) {
+    document.getElementById('result-emoji').textContent = '💪';
+    document.getElementById('result-title').textContent = 'Добре!';
+    document.getElementById('result-sub').textContent = 'Продовжуй практикуватись щодня!';
+  } else {
+    document.getElementById('result-emoji').textContent = '📖';
+    document.getElementById('result-title').textContent = 'Не здавайся!';
+    document.getElementById('result-sub').textContent = 'Практика — шлях до успіху!';
+  }
+}
+
+restart();
+</script>
+</body>
+</html>
