@@ -3,12 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlipWords — Learn English Daily</title>
+<title>FlipWords — Free English Vocabulary Flashcard Game</title>
+<meta name="description" content="FlipWords is a free English vocabulary learning app. Practice English words with interactive flashcards across 4 categories: Basics, Business, Travel, and Emotions. No registration needed.">
+<meta name="keywords" content="learn English, English vocabulary, flashcards, English for beginners, English Ukrainian, вчити англійську, англійські слова">
+<link rel="canonical" href="https://flipwords-ua.netlify.app/">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#fffdf7;--ink:#1a1208;--accent:#f5a623;--accent2:#2ecc71;--wrong:#e74c3c;--muted:#aaa}
 body{background:var(--bg);color:var(--ink);font-family:'Nunito',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0}
+nav{width:100%;background:#fff;border-bottom:2px solid #f0ede4;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:var(--ink)}
+.nav-logo em{color:var(--accent);font-style:normal}
+.nav-links{display:flex;gap:16px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
 .ad-top{width:100%;background:#f0ede4;border-bottom:1px solid #e5e0d0;display:flex;align-items:center;justify-content:center;padding:8px 16px;min-height:60px}
 .ad-label{font-size:10px;color:#bbb;letter-spacing:2px;text-transform:uppercase;margin-right:12px}
 .ad-placeholder{width:320px;height:50px;background:#e8e3d5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#aaa}
@@ -60,30 +69,37 @@ header{text-align:center;padding:28px 20px 0}
 .btn-restart:hover{transform:scale(1.04)}
 .ad-mid{width:90%;max-width:400px;margin:24px auto 0;display:flex;flex-direction:column;align-items:center;gap:6px}
 .game-area{width:100%;display:flex;flex-direction:column;align-items:center}
+.info-section{max-width:400px;width:90%;margin:32px auto 0;background:#fff;border-radius:20px;padding:24px;border:2px solid #f0ede4;text-align:center}
+.info-section h2{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:10px}
+.info-section p{font-size:14px;line-height:1.75;color:#555;margin-bottom:14px}
+.info-links{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.info-links a{text-decoration:none;background:#f0ede4;color:var(--ink);padding:6px 16px;border-radius:50px;font-size:13px;font-weight:700;transition:background .2s}
+.info-links a:hover{background:var(--accent);color:#fff}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 .shake{animation:shake .4s ease}
 @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
 .pop{animation:pop .3s ease}
-footer{margin-top:auto;padding:20px;font-size:11px;color:#ccc;text-align:center}
+footer{margin-top:auto;padding:20px;font-size:11px;color:#ccc;text-align:center;width:100%;border-top:1px solid #f0ede4}
+footer a{color:var(--accent);text-decoration:none;margin:0 6px}
 </style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2374209772782950"
-     crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2374209772782950" crossorigin="anonymous"></script>
 </head>
 <body>
+<nav>
+  <a href="/" class="nav-logo">Flip<em>Words</em></a>
+  <ul class="nav-links">
+    <li><a href="/" class="active">Play</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/how-to-play.html">How to Play</a></li>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/privacy.html">Privacy</a></li>
+  </ul>
+</nav>
 <div class="ad-top">
   <span class="ad-label">Ad</span>
-  <script>
-  atOptions = {
-    'key' : '575b6ac462cf76cc7d221d352a1f06b3',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highperformanceformat.com/575b6ac462cf76cc7d221d352a1f06b3/invoke.js"></script>
-
-  <div class="ad-placeholder">📢 Your AdSense ad appears here</div>
+  <script>atOptions={'key':'575b6ac462cf76cc7d221d352a1f06b3','format':'iframe','height':50,'width':320,'params':{}};</script>
+  <script src="https://www.highperformanceformat.com/575b6ac462cf76cc7d221d352a1f06b3/invoke.js"></script>
+  <div class="ad-placeholder">Ad</div>
 </div>
 <header>
   <div class="logo">Flip<em>Words</em></div>
@@ -121,18 +137,9 @@ footer{margin-top:auto;padding:20px;font-size:11px;color:#ccc;text-align:center}
   </div>
   <div class="ad-mid">
     <span class="ad-label">Ad</span>
-    <script>
-  atOptions = {
-    'key' : '575b6ac462cf76cc7d221d352a1f06b3',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highperformanceformat.com/575b6ac462cf76cc7d221d352a1f06b3/invoke.js"></script>
-
-    <div class="ad-placeholder" style="width:300px;height:80px;border-radius:8px;">📢 AdSense ad</div>
+    <script>atOptions={'key':'575b6ac462cf76cc7d221d352a1f06b3','format':'iframe','height':50,'width':320,'params':{}};</script>
+    <script src="https://www.highperformanceformat.com/575b6ac462cf76cc7d221d352a1f06b3/invoke.js"></script>
+    <div class="ad-placeholder" style="width:300px;height:80px;border-radius:8px;">Ad</div>
   </div>
 </div>
 <div class="result-screen" id="result-screen">
@@ -143,7 +150,16 @@ footer{margin-top:auto;padding:20px;font-size:11px;color:#ccc;text-align:center}
   <div class="result-detail" id="result-detail"></div>
   <button class="btn-restart" onclick="restart()">🔄 Play again</button>
 </div>
-<footer>FlipWords · Free English Practice · © 2026</footer>
+<div class="info-section">
+  <h2>Free English Flashcards</h2>
+  <p>FlipWords helps you learn English vocabulary using the proven flashcard method. Practice 40+ words across 4 categories with no registration required. Study at your own pace, every day.</p>
+  <div class="info-links">
+    <a href="/how-to-play.html">How to Play</a>
+    <a href="/about.html">About FlipWords</a>
+    <a href="/blog.html">Learning Tips</a>
+  </div>
+</div>
+<footer>FlipWords · Free English Practice · 2026 · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a> · <a href="/blog.html">Blog</a></footer>
 <script>
 const WORDS={basics:[{word:"Happy",emoji:"😊",ua:"Щасливий",ex:"I feel happy today."},{word:"Beautiful",emoji:"🌸",ua:"Красивий",ex:"What a beautiful day!"},{word:"Friend",emoji:"🤝",ua:"Друг",ex:"She is my best friend."},{word:"Work",emoji:"💼",ua:"Робота",ex:"I go to work every day."},{word:"Home",emoji:"🏠",ua:"Дім",ex:"I love my home."},{word:"Money",emoji:"💰",ua:"Гроші",ex:"I need to earn money."},{word:"Love",emoji:"❤️",ua:"Кохання",ex:"Love is everything."},{word:"Dream",emoji:"🌙",ua:"Мрія",ex:"Follow your dream."},{word:"Success",emoji:"🏆",ua:"Успіх",ex:"Hard work leads to success."},{word:"Smile",emoji:"😁",ua:"Посмішка",ex:"Your smile is contagious."}],business:[{word:"Deadline",emoji:"⏰",ua:"Дедлайн",ex:"The deadline is tomorrow."},{word:"Invoice",emoji:"🧾",ua:"Рахунок",ex:"Please send the invoice."},{word:"Client",emoji:"🤵",ua:"Клієнт",ex:"The client is happy."},{word:"Profit",emoji:"📈",ua:"Прибуток",ex:"Our profit grew this year."},{word:"Meeting",emoji:"📅",ua:"Зустріч",ex:"I have a meeting at noon."},{word:"Freelance",emoji:"💻",ua:"Фріланс",ex:"I work freelance."},{word:"Proposal",emoji:"📄",ua:"Пропозиція",ex:"She sent a great proposal."},{word:"Revenue",emoji:"💵",ua:"Дохід",ex:"Revenue doubled last month."},{word:"Strategy",emoji:"🗺️",ua:"Стратегія",ex:"We need a new strategy."},{word:"Feedback",emoji:"💬",ua:"Відгук",ex:"I got positive feedback."}],travel:[{word:"Passport",emoji:"🛂",ua:"Паспорт",ex:"Don't forget your passport!"},{word:"Luggage",emoji:"🧳",ua:"Багаж",ex:"My luggage is too heavy."},{word:"Flight",emoji:"✈️",ua:"Рейс",ex:"Our flight leaves at 8am."},{word:"Hotel",emoji:"🏨",ua:"Готель",ex:"The hotel is very cozy."},{word:"Journey",emoji:"🗺️",ua:"Подорож",ex:"What a long journey!"},{word:"Adventure",emoji:"🧗",ua:"Пригода",ex:"Life is an adventure."},{word:"Explore",emoji:"🔭",ua:"Досліджувати",ex:"Let's explore the city!"},{word:"Culture",emoji:"🎭",ua:"Культура",ex:"I love local culture."},{word:"Souvenir",emoji:"🎁",ua:"Сувенір",ex:"I bought a souvenir."},{word:"Tourist",emoji:"📸",ua:"Турист",ex:"I'm a tourist here."}],emotions:[{word:"Excited",emoji:"🤩",ua:"Схвильований",ex:"I'm so excited!"},{word:"Nervous",emoji:"😰",ua:"Нервовий",ex:"She feels nervous."},{word:"Proud",emoji:"🦁",ua:"Гордий",ex:"I'm proud of you."},{word:"Grateful",emoji:"🙏",ua:"Вдячний",ex:"I'm grateful for everything."},{word:"Brave",emoji:"💪",ua:"Хоробрий",ex:"Be brave and try."},{word:"Confident",emoji:"😎",ua:"Впевнений",ex:"Stay confident!"},{word:"Surprised",emoji:"😲",ua:"Здивований",ex:"I was surprised."},{word:"Calm",emoji:"🧘",ua:"Спокійний",ex:"Stay calm and breathe."},{word:"Curious",emoji:"🤔",ua:"Цікавий",ex:"Children are very curious."},{word:"Hopeful",emoji:"🌟",ua:"Сповнений надії",ex:"I feel hopeful today."}]};
 const CATS=Object.keys(WORDS);
