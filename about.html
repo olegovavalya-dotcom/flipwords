@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About FlipWords — Free English Vocabulary Learning App</title>
+<meta name="description" content="FlipWords is a free English vocabulary learning app using flashcards. Learn 40+ words across 4 categories: Basics, Business, Travel, and Emotions. No registration required.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#fffdf7;--ink:#1a1208;--accent:#f5a623;--accent2:#2ecc71;--muted:#aaa;--border:#f0ede4}
+body{background:var(--bg);color:var(--ink);font-family:'Nunito',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+nav{width:100%;background:#fff;border-bottom:2px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:var(--ink)}
+.nav-logo em{color:var(--accent);font-style:normal}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.hero{text-align:center;padding:60px 20px 40px;max-width:720px;width:90%;margin:0 auto}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,8vw,64px);font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:16px}
+.hero h1 em{color:var(--accent);font-style:normal}
+.hero p{font-size:17px;line-height:1.8;color:#555;max-width:540px;margin:0 auto 32px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:16px 40px;border-radius:50px;font-size:16px;font-weight:700;text-decoration:none;transition:transform .2s}
+.cta-btn:hover{transform:scale(1.05)}
+.stats-row{display:flex;max-width:720px;width:90%;margin:0 auto 48px;background:#fff;border-radius:20px;border:2px solid var(--border);overflow:hidden}
+.stat-box{flex:1;text-align:center;padding:28px 16px;border-right:2px solid var(--border)}
+.stat-box:last-child{border-right:none}
+.stat-num{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--accent)}
+.stat-label{font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px}
+.container{max-width:720px;width:90%;margin:0 auto;padding-bottom:60px}
+.section{background:#fff;border-radius:20px;padding:32px;margin-bottom:20px;border:2px solid var(--border)}
+.section h2{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;margin-bottom:16px}
+.section h2 em{color:var(--accent);font-style:normal}
+.section p{font-size:15px;line-height:1.85;color:#444;margin-bottom:14px}
+.section p:last-child{margin-bottom:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.cat-card{background:var(--bg);border-radius:14px;padding:20px;border:2px solid var(--border);text-align:center}
+.cat-emoji{font-size:32px;margin-bottom:8px}
+.cat-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:4px}
+.cat-desc{font-size:13px;color:var(--muted);line-height:1.5}
+.features-list{list-style:none;padding:0;margin-top:12px}
+.features-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:15px;line-height:1.6;color:#444}
+.features-list li:last-child{border-bottom:none}
+.features-list li .icon{font-size:20px;flex-shrink:0}
+footer{padding:24px;font-size:11px;color:#ccc;text-align:center;width:100%;border-top:1px solid var(--border)}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){.stats-row{flex-direction:column}.stat-box{border-right:none;border-bottom:2px solid var(--border)}.stat-box:last-child{border-bottom:none}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Flip<em>Words</em></a>
+  <ul class="nav-links">
+    <li><a href="/">Play</a></li>
+    <li><a href="/about.html" class="active">About</a></li>
+    <li><a href="/how-to-play.html">How to Play</a></li>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/privacy.html">Privacy</a></li>
+  </ul>
+</nav>
+<div class="hero">
+  <h1>Learn English with <em>FlipWords</em></h1>
+  <p>FlipWords is a free, no-registration English vocabulary app that helps you learn new words every day using the proven flashcard method. Simple, fast, and effective — practice anytime, anywhere.</p>
+  <a href="/" class="cta-btn">Start Playing Free</a>
+</div>
+<div class="stats-row">
+  <div class="stat-box"><div class="stat-num">40+</div><div class="stat-label">Words to Learn</div></div>
+  <div class="stat-box"><div class="stat-num">4</div><div class="stat-label">Categories</div></div>
+  <div class="stat-box"><div class="stat-num">100%</div><div class="stat-label">Free Forever</div></div>
+  <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Registration</div></div>
+</div>
+<div class="container">
+  <div class="section">
+    <h2>What is <em>FlipWords</em>?</h2>
+    <p>FlipWords is a free English vocabulary learning application built for Ukrainian speakers and anyone who wants to improve their English through daily practice. The app uses the classic <strong>flashcard method</strong>, one of the most research-backed ways to memorize new words quickly.</p>
+    <p>Each flashcard shows you an English word on the front. You try to recall the meaning, then flip the card to see the Ukrainian translation and an example sentence in context. You then tell the app whether you knew the word or need more practice — helping you track your progress in real time.</p>
+    <p>Our goal is simple: make English vocabulary learning <strong>free, fast, and fun</strong>. No subscriptions, no accounts, no setup — just open the site and start learning.</p>
+  </div>
+  <div class="section">
+    <h2>Word <em>Categories</em></h2>
+    <p>FlipWords includes 4 thematic categories, each with 10 carefully selected words:</p>
+    <div class="grid">
+      <div class="cat-card"><div class="cat-emoji">📚</div><div class="cat-name">Basics</div><div class="cat-desc">Essential everyday words: emotions, home, work, family.</div></div>
+      <div class="cat-card"><div class="cat-emoji">💼</div><div class="cat-name">Business</div><div class="cat-desc">Professional vocabulary for work, freelance, and finance.</div></div>
+      <div class="cat-card"><div class="cat-emoji">✈️</div><div class="cat-name">Travel</div><div class="cat-desc">Words for airports, hotels, and exploring new places.</div></div>
+      <div class="cat-card"><div class="cat-emoji">❤️</div><div class="cat-name">Emotions</div><div class="cat-desc">Express yourself: feelings, moods, emotional vocabulary.</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Why <em>Flashcards</em> Work</h2>
+    <p>Flashcards are one of the oldest and most effective language learning tools. They are based on <strong>active recall</strong> — instead of passively reading word lists, you actively try to remember the meaning before revealing the answer. This forces your brain to work harder, creating stronger and longer-lasting memory traces.</p>
+    <p>Research consistently shows that active recall outperforms passive study by a significant margin. Students who use flashcards regularly retain vocabulary 2 to 3 times longer compared to those who simply read or highlight text.</p>
+  </div>
+  <div class="section">
+    <h2>App <em>Features</em></h2>
+    <ul class="features-list">
+      <li><span class="icon">🃏</span><div>Interactive flip cards with smooth 3D animations — tap to reveal translation and example sentence.</div></li>
+      <li><span class="icon">📊</span><div>Real-time progress tracking — see how many words you know vs. need to review each session.</div></li>
+      <li><span class="icon">🔀</span><div>Shuffled deck every round — cards appear in different order so you truly memorize words, not positions.</div></li>
+      <li><span class="icon">📱</span><div>Mobile-friendly — works on phones, tablets, and desktops. No app download required.</div></li>
+      <li><span class="icon">🌍</span><div>Ukrainian translations — each word includes a Ukrainian translation for native Ukrainian speakers.</div></li>
+      <li><span class="icon">💬</span><div>Example sentences — every word comes with a real-world example to understand it in context.</div></li>
+      <li><span class="icon">🆓</span><div>Completely free — no premium plans, no paywalls, no subscription fees. Always free.</div></li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Coming <em>Soon</em></h2>
+    <ul class="features-list">
+      <li><span class="icon">🎮</span><div><strong>Anagrams Game</strong> — unscramble letters to form the correct English word.</div></li>
+      <li><span class="icon">❓</span><div><strong>Quiz Mode</strong> — multiple choice questions to test your vocabulary knowledge.</div></li>
+      <li><span class="icon">🧩</span><div><strong>Memory Pairs</strong> — match English words with Ukrainian translations in a card memory game.</div></li>
+      <li><span class="icon">🎧</span><div><strong>Dictation Mode</strong> — listen to the word and type what you hear to practice spelling.</div></li>
+      <li><span class="icon">📈</span><div><strong>Level Test</strong> — find out your English level from A1 to C2.</div></li>
+    </ul>
+  </div>
+</div>
+<footer>FlipWords · Free English Practice · 2026 · <a href="/privacy.html">Privacy Policy</a> · <a href="/about.html">About</a> · <a href="/blog.html">Blog</a></footer>
+</body>
+</html>
