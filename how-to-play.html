@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Play FlipWords — English Flashcard Game Guide</title>
+<meta name="description" content="Learn how to use FlipWords to study English vocabulary. Step-by-step guide to the flashcard game: flip cards, track progress, and improve your English fast.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#fffdf7;--ink:#1a1208;--accent:#f5a623;--accent2:#2ecc71;--muted:#aaa;--border:#f0ede4}
+body{background:var(--bg);color:var(--ink);font-family:'Nunito',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+nav{width:100%;background:#fff;border-bottom:2px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:-1px;text-decoration:none;color:var(--ink)}
+.nav-logo em{color:var(--accent);font-style:normal}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.container{max-width:720px;width:90%;margin:48px auto;padding-bottom:60px}
+.page-header{text-align:center;margin-bottom:48px}
+.page-header h1{font-family:'Syne',sans-serif;font-size:clamp(36px,7vw,56px);font-weight:800;letter-spacing:-2px;margin-bottom:12px}
+.page-header h1 em{color:var(--accent);font-style:normal}
+.page-header p{font-size:16px;color:#555;line-height:1.7;max-width:480px;margin:0 auto}
+.steps{display:flex;flex-direction:column;gap:16px;margin-bottom:40px}
+.step{background:#fff;border-radius:20px;padding:28px 32px;border:2px solid var(--border);display:flex;gap:24px;align-items:flex-start}
+.step-num{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:var(--accent);line-height:1;flex-shrink:0;width:56px}
+.step-content h3{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:8px}
+.step-content p{font-size:15px;line-height:1.8;color:#444}
+.tip-box{background:linear-gradient(135deg,#eaffea,#d4f5e9);border-radius:20px;padding:28px 32px;margin-bottom:40px;border:2px solid #b2e8ce}
+.tip-box h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#1a7a4a;margin-bottom:16px}
+.tip-box ul{list-style:none;padding:0}
+.tip-box ul li{display:flex;gap:12px;padding:10px 0;font-size:15px;line-height:1.7;color:#2a6040;border-bottom:1px solid rgba(0,0,0,.06)}
+.tip-box ul li:last-child{border-bottom:none}
+.tip-icon{font-size:20px;flex-shrink:0}
+.faq{background:#fff;border-radius:20px;padding:28px 32px;border:2px solid var(--border);margin-bottom:40px}
+.faq h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:20px}
+.faq h2 em{color:var(--accent);font-style:normal}
+.faq-item{padding:16px 0;border-bottom:1px solid var(--border)}
+.faq-item:last-child{border-bottom:none}
+.faq-item h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.faq-item p{font-size:14px;line-height:1.75;color:#555}
+.cta-section{text-align:center;padding:40px 20px;background:linear-gradient(135deg,#fff8e0,#fffdf0);border-radius:20px;border:2px solid var(--accent)}
+.cta-section h2{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;margin-bottom:12px}
+.cta-section p{color:#555;margin-bottom:24px}
+.cta-btn{display:inline-block;background:var(--accent);color:#fff;padding:16px 40px;border-radius:50px;font-size:16px;font-weight:700;text-decoration:none;transition:transform .2s}
+.cta-btn:hover{transform:scale(1.05)}
+footer{padding:24px;font-size:11px;color:#ccc;text-align:center;width:100%;border-top:1px solid var(--border)}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:600px){.step{flex-direction:column;gap:8px}.step-num{font-size:36px;width:auto}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Flip<em>Words</em></a>
+  <ul class="nav-links">
+    <li><a href="/">Play</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/how-to-play.html" class="active">How to Play</a></li>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/privacy.html">Privacy</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <div class="page-header">
+    <h1>How to <em>Play</em></h1>
+    <p>FlipWords is super easy to get started. Follow these simple steps and you will be learning English vocabulary in seconds.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Choose a Category</h3><p>At the top of the game you will see four category buttons: <strong>Basics, Business, Travel, and Emotions</strong>. Tap the category that matches what you want to practice today. Each category contains 10 carefully selected words.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Read the English Word</h3><p>A flashcard appears with an English word and an emoji. Look at the word carefully and try to remember what it means in Ukrainian. Take a moment to think before moving on.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-content"><h3>Flip the Card</h3><p>When ready, tap the card or press <strong>"Reveal answer"</strong>. The card flips with a smooth animation to show you the <strong>Ukrainian translation</strong> and a real example sentence so you can see how the word is used in context.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-content"><h3>Rate Your Answer</h3><p>Two buttons appear after the flip. Press <strong>"Know it!"</strong> if you already knew the word. Press <strong>"Learn more"</strong> if the word was new or you forgot it. Be honest with yourself for the best learning results.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-content"><h3>Track Your Progress</h3><p>At the top you can see live stats: how many cards you got right, the current card number, and how many need more practice. A progress bar shows how far through the deck you are.</p></div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-content"><h3>See Your Results</h3><p>After finishing all 10 cards you see a result screen with your score as a percentage. Scored 80% or higher? Excellent! Below 50%? Press <strong>"Play again"</strong> to repeat the deck and improve.</p></div></div>
+  </div>
+  <div class="tip-box">
+    <h2>Tips for Faster Learning</h2>
+    <ul>
+      <li><span class="tip-icon">🌅</span><div><strong>Practice daily</strong> — even 5 minutes a day is enough. Consistency beats long study sessions.</div></li>
+      <li><span class="tip-icon">🗣️</span><div><strong>Say words out loud</strong> — speaking activates different memory pathways and improves retention significantly.</div></li>
+      <li><span class="tip-icon">📝</span><div><strong>Write new words down</strong> — if a word surprises you, write it in a notebook. Writing reinforces memory.</div></li>
+      <li><span class="tip-icon">🔁</span><div><strong>Repeat the deck</strong> — if your score was below 70%, play the same category again immediately.</div></li>
+      <li><span class="tip-icon">🎯</span><div><strong>Focus on one category per day</strong> — master one topic at a time to build strong vocabulary clusters.</div></li>
+      <li><span class="tip-icon">📖</span><div><strong>Use example sentences</strong> — read the sentence on the back of each card to understand the word in context.</div></li>
+    </ul>
+  </div>
+  <div class="faq">
+    <h2>Frequently Asked <em>Questions</em></h2>
+    <div class="faq-item"><h3>Is FlipWords completely free?</h3><p>Yes — 100% free. No subscriptions, no hidden fees. The app is supported by advertising which keeps it free for everyone.</p></div>
+    <div class="faq-item"><h3>Do I need to create an account?</h3><p>No registration is required. Just open the website and start playing immediately.</p></div>
+    <div class="faq-item"><h3>Does it work on mobile?</h3><p>Yes. FlipWords is fully optimized for phones and tablets. No app download needed — just open the site in any mobile browser.</p></div>
+    <div class="faq-item"><h3>How many words are there?</h3><p>Currently 40 words across 4 categories. We are continuously adding new words and topics.</p></div>
+    <div class="faq-item"><h3>What English level is this for?</h3><p>FlipWords is best for beginner to intermediate learners (A1 to B1). More advanced vocabulary decks are planned for future updates.</p></div>
+  </div>
+  <div class="cta-section">
+    <h2>Ready to Start?</h2>
+    <p>It only takes 5 minutes to complete one deck. Start with Basics and work your way through all categories.</p>
+    <a href="/" class="cta-btn">Play FlipWords Now</a>
+  </div>
+</div>
+<footer>FlipWords · Free English Practice · 2026 · <a href="/privacy.html">Privacy Policy</a> · <a href="/about.html">About</a> · <a href="/blog.html">Blog</a></footer>
+</body>
+</html>
